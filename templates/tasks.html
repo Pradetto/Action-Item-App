@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>All Tasks</title>
+{% endblock %}
+
+{% block body %}
+<br>
+<h1>All Tasks</h1>
+<br>
+
+<hr>
+<h2>Create New Task:</h2>
+<form action="/tasks" method="POST">
+    <label for="tasks">Task:</label>
+    <input class="form-control" type="text" name="task" id="task" placeholder="Enter Task" aria-label="Enter Task"> 
+    <br>
+    <label for="owner">Owner:</label>
+    <input class="form-control" type="text" name="owner" id="owner" placeholder="Enter Owner"
+        aria-label="Enter owner">
+    <br>
+    <label for="due_date">Due Date:</label>
+    <input class="form-control" type="date" name="due_date" id="due_date" placeholder="Enter Due Date" aria-label="Enter Due Date">
+    <br>
+    <label for="comments">Comments:</label>
+    <textarea class="form-control" name="comments" id="comments" rows="3" placeholder="Enter Comments Here"
+        aria-label="Enter Comments Here"></textarea>
+    <br>
+    <label for="status">Status:</label>
+    <input class="form-control" type="text" name="status" id="status" value="Open"
+        aria-label="Open">
+    <br>
+    <label for="grouping">Grouping:</label>
+    <input class="form-control" type="text" name="grouping" id="grouping" placeholder="Enter Grouping Here" aria-label="Enter Grouping Here">
+    <br>
+    <input type="submit" value="Post">
+</form>
+<hr>
+
+<!-- Creating a Table -->
+<table id="data" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Task</th>
+        <th>owner</th>
+        <th>due_date</th>
+        <th>comments</th>
+        <th>status</th>
+        <th>grouping</th>
+        <th>date_recorded</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for item in tasks %}
+        <tr>
+            <td>{{ item.task }}</td>
+            <td>{{ item.owner }}</td>
+            <td>{{ item.due_date }}</td>
+            <td>{{ item.comments }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.grouping }}</td>
+            <td>{{ item.date_recorded }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
