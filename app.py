@@ -20,6 +20,9 @@ class TodoList(db.Model):
     date_recorded = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow)
 
+
+# class User(db.Model):
+#     __tablename__ = 'users'
 # task
 # owner
 # due_date
