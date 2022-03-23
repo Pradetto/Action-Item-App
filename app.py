@@ -60,5 +60,33 @@ def tasks():
         return render_template('tasks.html', tasks=all_tasks)
 
 
+@app.route('/tasks/delete/<int:id>')
+def delete(id):
+    task = TodoList.query.get_or_404(id)
+    db.session.delete(task)
+    db.session.commit()
+    return redirect('/tasks')
+
+
+@app.route('/tasks/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    task = TodoList.query.get_or_404(id)
+    if request.method == 'POST':
+        task.task = request.form['task']
+        task.owner = request.form['owner']
+
+        # Have to convert string date to datetime below
+        todo_due_date = request.form.get('due_date')
+        task.due_date = datetime.strptime(todo_due_date, '%Y-%m-%d')
+
+        task.comments = request.form['comments']
+        task.status = request.form['status']
+        task.grouping = request.form['grouping']
+        db.session.commit()
+        return redirect("/tasks")
+    else:
+        return render_template('edit.html', task=task)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

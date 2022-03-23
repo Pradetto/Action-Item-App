@@ -37,22 +37,40 @@
 </form>
 <hr>
 
-<!-- Creating a Table -->
-<table id="data" class="table table-striped">
+<div id="toolbar">
+    <select class="form-control">
+        <option value="">Export Basic</option>
+        <option value="all">Export All</option>
+        <option value="selected">Export Selected</option>
+    </select>
+</div> 
+
+<div class="container">
+<table id="table" 
+    data-toggle="table" 
+    data-search="true" 
+    data-filter-control="true" 
+    data-show-export="false"
+    data-click-to-select="true" 
+    data-toolbar="#toolbar" 
+    class="table-responsive">
     <thead>
-    <tr>
-        <th>Task</th>
-        <th>owner</th>
-        <th>due_date</th>
-        <th>comments</th>
-        <th>status</th>
-        <th>grouping</th>
-        <th>date_recorded</th>
-    </tr>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="task" data-filter-control="select" data-sortable="true">Task</th>
+            <th data-field="owner" data-filter-control="select" data-sortable="true">Owner</th>
+            <th data-field="due_date" data-filter-control="select" data-sortable="true">Due Date</th>
+            <th data-field="comments" data-filter-control="select" data-sortable="true">Comments</th>
+            <th data-field="status" data-filter-control="select" data-sortable="true">Status</th>
+            <th data-field="grouping" data-filter-control="select" data-sortable="true">Grouping</th>
+            <th data-field="date_recorded" data-filter-control="select" data-sortable="true">Date Recorded</th>
+            <th>Edit/Delete</th>
+        </tr>
     </thead>
     <tbody>
-        {% for item in tasks %}
         <tr>
+            {% for item in tasks %}
+            <td class="bs-checkbox "><input data-index="{{ item.id }}" name="btSelectItem" type="checkbox"></td>
             <td>{{ item.task }}</td>
             <td>{{ item.owner }}</td>
             <td>{{ item.due_date }}</td>
@@ -60,9 +78,29 @@
             <td>{{ item.status }}</td>
             <td>{{ item.grouping }}</td>
             <td>{{ item.date_recorded }}</td>
+            <td><a class='btn btn-primary' href="/tasks/edit/{{item.id}}">Edit</a><a class='btn btn-danger' href="/tasks/delete/{{item.id}}">Delete</a></td>
+            
+            
         </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
+
 
 {% endblock %}
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
+<script>

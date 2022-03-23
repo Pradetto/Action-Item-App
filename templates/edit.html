@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Edit Task</title>
+{% endblock %}
+
+
+
+{% block body %}
+<h1>Editing Task</h1>
+
+<hr>
+<h2>Edit:</h2>
+<form action='/tasks/edit/{{task.id}}' method="POST">
+    <label for="tasks">Task:</label>
+    <input class="form-control" type="text" name="task" id="task" value="{{task.task}}" aria-label="Enter Task">
+    <br>
+    <label for="owner">Owner:</label>
+    <input class="form-control" type="text" name="owner" id="owner" value="{{task.owner}}" aria-label="Enter owner">
+    <br>
+    <label for="due_date">Due Date:</label>
+    <input class="form-control" type="date" name="due_date" id="due_date" value="{{task.due_date}}"
+        aria-label="Enter Due Date">
+    <br>
+    <label for="comments">Comments:</label>
+    <textarea class="form-control" name="comments" id="comments" rows="3"
+        aria-label="Enter Comments Here">{{task.comments}}</textarea>
+    <br>
+    <label for="status">Status:</label>
+    <input class="form-control" type="text" name="status" id="status" value="{{task.status}}" aria-label="Open">
+    <br>
+    <label for="grouping">Grouping:</label>
+    <input class="form-control" type="text" name="grouping" id="grouping" value="{{task.grouping}}"
+        aria-label="Enter Grouping Here">
+    <br>
+    <input type="submit" value="Post">
+    </form>
+<hr>
+{% endblock %}
